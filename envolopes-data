@@ -1,0 +1,34 @@
+const envelopes = [
+  {
+    id: 1,
+    title: "Groceries",
+    budget: 150,
+  },
+  {
+    id: 2,
+    title: 'Fuel',
+    budget: 300,
+  },
+  {
+    id: 3,
+    title: "Health",
+    budget: 500,
+  },
+  {
+    id: 4,
+    title: "Clothing",
+    budget: 100,
+  },
+  {
+    id: 5,
+    title: "Household items",
+    budget: 200,
+  },
+  {
+    id: 6,
+    title: "Pet care",
+    budget: 800,
+  },
+];
+
+module.exports = envelopes;
