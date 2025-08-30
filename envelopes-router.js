@@ -73,3 +73,22 @@ envelopeRouter.put('/:id/:budgetUpdate', (req,res,next) => {
     else {throw new Error('Amount more than budget')}
 });
 
+// Delete Specific Envelope
+envelopeRouter.delete('/:id', (req,res,next) => {
+    const foundIndex = envelopesData.findIndex((x) => {return Number(req.params.id) === x.id});
+    removedEnvelope = envelopesData[foundIndex]
+    envelopesData.splice(foundIndex,1);
+    res.send(removedEnvelope)
+})
+
+// Transfer route
+envelopeRouter.get('/transfer/:transferFrom/:transferTo', (req,res,next) => {
+    const transferFromIndex = envelopesData.findIndex((x) => {return Number(req.params.transferFrom) === x.id})
+    const transfertoIndex = envelopesData.findIndex((x) => {return Number(req.params.transferTo) === x.id})
+   
+    
+    envelopesData[transferFromIndex].budget -= req.body.amount
+    envelopesData[transfertoIndex].budget += req.body.amount
+
+    res.status(201).send(envelopesData[transferFromIndex])
+}) 
