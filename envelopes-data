@@ -1,4 +1,4 @@
-const envelopes = [
+const envelopesData = [
   {
     id: 1,
     title: "Groceries",
@@ -31,4 +31,4 @@ const envelopes = [
   },
 ];
 
-module.exports = envelopes;
+module.exports = envelopesData;
