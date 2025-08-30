@@ -11,7 +11,8 @@ envelopeRouter.param('id', (req,res,next,id) =>
     try {
     const found = envelopesData.find((x) => {return Number(id) === x.id});
     if (found)
-    {req.envelope = found;
+    {
+    req.envelope = found;
     next()}
     else { next(new Error('No Envelope matched the id you requested'));}
     }
@@ -55,5 +56,20 @@ envelopeRouter.get('/:id', (req,res,next) => {
 
 // PUT request to update envelopes
 envelopeRouter.put('/:id', (req,res,next) => {
-   res.send(req.envelope)
-})
+    {const foundIndex = envelopesData.findIndex((x) => {return Number(req.params.id) === x.id});
+        envelopesData[foundIndex].budget = req.body.budget;
+        envelopesData[foundIndex].title = req.body.title;
+        res.send(envelopesData[foundIndex]);}
+});
+
+// Special route for updating budget
+envelopeRouter.put('/:id/:budgetUpdate', (req,res,next) => {
+    const foundIndex = envelopesData.findIndex((x) => {return Number(req.params.id) === x.id});
+    const currentBudget = envelopesData[foundIndex].budget
+        
+    if (Number(currentBudget) >= Number(req.params.budgetUpdate))
+    {envelopesData[foundIndex].budget = Number(currentBudget) - Number(req.params.budgetUpdate) 
+    res.send(envelopesData[foundIndex]);}
+    else {throw new Error('Amount more than budget')}
+});
+
